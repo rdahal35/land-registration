@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+<!--  -->
+{% block content %}
+<br/>
+<br/>
+<main id="main">
+  <!-- ======= About Section ======= -->
+  <section id="about" class="about">
+    <div class="container" >
+      <div class="row gx-0">
+        <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
+          <div class="c">
+           <h2>My Properties </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class="container">
+    <div class="list-group">
+        {% for property in properties %}
+        <a href="#" class="list-group-item list-group-item-action"> <b>{{property.address}} -- {{property.owner_name}} -- {{property.get_property_type_display}}</b></a>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  </main>
+{% endblock content %}
