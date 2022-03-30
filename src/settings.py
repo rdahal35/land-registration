@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'land',
 ]
 
+AUTH_USER_MODEL = 'users.User'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -86,7 +88,7 @@ WSGI_APPLICATION = 'src.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'property_registration',
+        'NAME': 'prs',
         'USER': 'vod',
         'PASSWORD': '12345',
         'HOST': 'localhost',

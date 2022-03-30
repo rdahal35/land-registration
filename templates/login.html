@@ -1,21 +1,61 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Login{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'assets/css/login.css' %}">
+{% endblock %}
+
 
 {% block content %}
 <main id="main">
     <!-- ======= About Section ======= -->
-    <section id="about" class="about">
-        <div class="container" data-aos="fade-up">
-            <div class="row gx-0">
-                <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
-                    <div class="content">
-                        <h2>Login</h2>
-                        <form method="post">
-                            {% csrf_token %}
-                            {{ form.as_p }}
-                            <button type="submit">Login</button>
-                        </form>
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-7 col-lg-5">
+                    <div class="wrap">
+                        <div class="img" style="background-image: url({% static 'assets/img/features.png' %});"></div>
+                        <div class="login-wrap p-4 p-md-5">
+                            <div class="d-flex">
+                                <div class="w-100">
+                                    <h3 class="mb-4">Sign In</h3>
+                                </div>
+                            </div>
+                            {% if messages %}
+                            {% for message in messages %}
+                            <!-- Error Alert -->
+                            {% if message.tags == "error" %}
+                            <div class="alert alert-danger alert-dismissible fade show">
+                                <strong>Error!</strong> {{message}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}
+
+                            <form action="" method="post" class="signin-form">
+                                {% csrf_token %}
+                                <div class="form-group mt-3">
+                                    <input type="text" class="form-control" name="username" required>
+                                    <label class="form-control-placeholder" for="username">Username</label>
+                                </div>
+                                <div class="form-group">
+                                    <input id="password-field" type="password" class="form-control" name="password"
+                                        required>
+                                    <label class="form-control-placeholder" for="password">Password</label>
+                                    <span toggle="#password-field"
+                                        class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="form-control btn btn-primary rounded submit px-3">Sign
+                                        In</button>
+                                </div>
+                            </form>
+                            <p class="text-center">Not a member? <a data-toggle="tab" href="{% url 'signup' %}">Sign
+                                    Up</a></p>
+                        </div>
                     </div>
                 </div>
             </div>

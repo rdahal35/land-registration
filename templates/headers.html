@@ -7,11 +7,20 @@
             <img src="{% static 'assets/img/logo.png' %}" alt="">
             <span>Land Registry</span>
         </a>
+        <style>
+            #username {
+                background-color: rgb(34, 182, 187);
+                border-radius: 30%;
+            }
+
+            ;
+        </style>
 
         <nav id="navbar" class="navbar">
             <ul>
-                <li><a class="nav-link scrollto active" href="/">Home</a></li>
-                <li><a class="nav-link scrollto" href="{% url 'property-register' %}">Resister Property</a></li>
+                <li><a class="nav-link scrollto {% if link == 'home' %} active {% endif %}" href="/">Home</a></li>
+                <li><a class="nav-link scrollto {% if link == 'reg-prop' %} active {% endif %}"
+                        href="{% url 'property-register' %}">Register Property</a></li>
                 <!-- <li><a class="nav-link scrollto" href="#portfolio">Portfolio</a></li>
                 <li><a class="nav-link scrollto" href="#team">Team</a></li> -->
                 <!-- <li><a href="blog.html">Blog</a></li>
@@ -35,14 +44,20 @@
                 </li> -->
 
                 {% if request.user.is_authenticated %}
-                <li><a class="nav-link scrollto" href="{% url 'property' %}">My Property</a></li>
+                <li><a class="nav-link scrollto {% if link == 'prop' %} active {% endif %}"
+                        href="{% url 'property' %}">My Property</a></li>
                 <li><a class="nav-link scrollto" href="{% url 'logout' %}">Logout</a></li>
-               
+                <li>
+                    <a class="getstarted scrollto" id="username" aria-disabled="true" href="#"
+                        disabled>{{user.username}}</a>
+                </li>
                 {% else %}
 
-                <li><a class="nav-link scrollto" href="{% url 'login' %}">Login</a></li>
+                <li><a class="nav-link scrollto {% if link == 'login' %} active {% endif %}"
+                        href="{% url 'login' %}">Login</a></li>
                 <li><a class="getstarted scrollto" href="{% url 'signup' %}">Get Started</a></li>
                 {% endif %}
+
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
         </nav><!-- .navbar -->

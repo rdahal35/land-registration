@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+<!------ Include the above in your HEAD tag ---------->
+<link rel="stylesheet" href="{% static 'assets/css/property-detail.css' %}">
+
+{% endblock %}
+
+<!--  -->
+{% block content %}
+<main id="main">
+    <!-- ======= About Section ======= -->
+
+    <section id="hero" class="hero d-flex align-items-center">
+        <div class="container" data-aos="fade-up">
+            <div class="row">
+                <div class="container">
+                    <div class="card">
+                        <div class="container-fliud">
+                            <div class="wrapper row">
+                                <div class="preview col-md-6">
+
+                                    <div class="preview-pic tab-content">
+                                        <!-- <div class="tab-pane active" id="pic-1"><img
+                                                src="http://placekitten.com/400/252" /></div> -->
+                                        <iframe
+                                            src="https://maps.google.com/maps?q={{property.coordinate}}&hl=es;z=14&amp;output=embed"
+                                            width="600" height="450" style="border:0;" allowfullscreen=""
+                                            loading="lazy"></iframe>
+                                    </div>
+
+                                </div>
+                                <div class="details col-md-6">
+                                    <h3 class="product-title">Land Detail
+                                        {% if property.status == 'A'%}
+                                        {% if valid %}
+                                        <td><span class="badge bg-success">Valid</span></td>
+                                        {% else %}
+                                        <td><span class="badge bg-warning text-dark">Suspicious </span></td>
+                                        {% endif %}
+                                        {% endif %}
+                                    </h3>
+
+                                    <p class="product-description">This property belongs to
+                                        <b>{{property.owner_name}}</b>. The further detail of the property is down
+                                        below.
+                                    </p>
+                                    <h4 class="area">Area: <span> {{property.area}} Sq.Ft</span></h4>
+                                    <h5 class="sizes">State: {{property.state}}
+                                    </h5>
+
+                                    <h5 class="sizes">District: {{property.district}}
+                                    </h5>
+                                    <h5 class="sizes">Village/Municipality: {{property.village}}
+                                    </h5>
+                                    <h5 class="sizes">Address: {{property.address}}
+                                    </h5>
+                                    <h5 class="sizes">Owner Name: {{property.owner_name}}
+                                    </h5>
+                                    <h5 class="sizes">Status:
+                                        {% if property.status == 'A'%}
+                                        <td><span class="badge bg-success">Accepted</span></td>
+                                        {% elif property.status == 'P' %}
+                                        <td><span class="badge bg-primary">Pending</span></td>
+                                        {% else %}
+                                        <td><span class="badge bg-danger">Declined</span></td>
+                                        {% endif %}
+                                    </h5>
+                                    <h5 class="survey">Survey No: {{property.survey.survey_id}}
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

@@ -1,34 +1,90 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'assets/css/login.css' %}">
+{% endblock %}
 
 {% block content %}
 <main id="main">
   <!-- ======= About Section ======= -->
-  <section id="about" class="about">
-    <div class="container" data-aos="fade-up">
-      <div class="row gx-0">
-        <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
-          <div class="content">
-            <h2>Sign up</h2>
-            <form method="post">
-              {% csrf_token %}
-              {% for field in form %}
-              <p>
-                {{ field.label_tag }}<br>
-                {{ field }}
-                {% if field.help_text %}
-                <small style="color: grey">{{ field.help_text }}</small>
-                {% endif %}
-                {% for error in field.errors %}
-              <p style="color: red">{{ error }}</p>
+  <section class="ftco-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-5">
+          <div class="wrap">
+            <div class="img" style="background-image: url({% static 'assets/img/features-2.png' %});"></div>
+            <div class="login-wrap p-4 p-md-5">
+              <div class="d-flex">
+                <div class="w-100">
+                  <h3 class="mb-4">Sign Up</h3>
+                </div>
+              </div>
+              {% if messages %}
+              {% for message in messages %}
+              <!-- Error Alert -->
+              {% if message.tags == "error" %}
+              <div class="alert alert-danger alert-dismissible fade show">
+                <strong>Error!</strong> {{message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              </div>
+              {% endif %}
               {% endfor %}
-              </p>
-              {% endfor %}
-              <button type="submit">Sign up</button>
-            </form>
+              {% endif %}
+
+
+
+              <form action="" method="post" class="signin-form">
+                {% csrf_token %}
+                <div class="form-group mt-3">
+                  <input type="text" class="form-control" name="username" required>
+                  <label class="form-control-placeholder" for="username">Username</label>
+                </div>
+                <div class="form-group mt-3">
+                  <input type="email" class="form-control" name="email" required>
+                  <label class="form-control-placeholder" for="email">Email</label>
+                </div>
+                <div class="form-group">
+                  <input id="password-field" type="password" class="form-control" name="password" required>
+                  <label class="form-control-placeholder" for="password">Password</label>
+                  <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                </div>
+                <div class="form-group">
+                  <input id="password1-field" type="password" class="form-control" name="password1" required>
+                  <label class="form-control-placeholder" for="password1">Re Password</label>
+                  <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                </div>
+                <input type="hidden" name="public_address" value="" id="public_address">
+                <div class="form-group">
+                  <button type="submit" class="form-control btn btn-primary rounded submit px-3">Sign
+                    Up</button>
+                </div>
+              </form>
+              <p class="text-center">Already a member? <a data-toggle="tab" href="{% url 'login' %}">Sign In</a></p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
 </main>
+{% endblock %}
+
+{% block script %}
+<script>
+
+
+  if (typeof window.ethereum !== 'undefined') {
+    console.log('MetaMask is installed!');
+  }
+
+  async function start() {
+    const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+    const account = accounts[0];
+    console.log(account);
+    document.getElementById("public_address").value = account;
+
+  }
+  start();
+
+</script>
 {% endblock %}
